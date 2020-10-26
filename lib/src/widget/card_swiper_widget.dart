@@ -16,12 +16,14 @@ class CardSwiper extends StatelessWidget {
       padding: EdgeInsets.only(top: 15.0),
       child: new Swiper(
         itemBuilder: (BuildContext context, int index) {
-          return new Image.network(
-            "http://via.placeholder.com/350x150",
-            fit: BoxFit.fill,
-          );
+          return ClipRRect(
+              borderRadius: BorderRadius.circular(20.0),
+              child: Image.network(
+                "http://via.placeholder.com/350x150",
+                fit: BoxFit.cover,
+              )); // border redondeado
         },
-        itemCount: 3,
+        itemCount: peliculas.length,
         itemWidth: _screenSize.width * 0.7,
         itemHeight: _screenSize.height * 0.5,
         layout: SwiperLayout.STACK,
