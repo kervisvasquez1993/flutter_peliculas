@@ -6,7 +6,7 @@ class Peliculas {
     if (jsonList == null) return;
     for (var item in jsonList) {
       final pelicula = new Pelicula.fromJsonMap(item);
-      items.add(pelicula)
+      items.add(pelicula);
     }
   }
 }
