@@ -13,7 +13,8 @@ class PeliculasProvider {
 
     final respuesta = await http.get(url);
     final decodeData = json.decode(respuesta.body);
-    print(decodeData['results']);
-    return [];
+    final peliculas = new Peliculas.fromJsonList(decodeData['results']);
+    print(peliculas.items[0].title);
+    return peliculas.items;
   }
 }

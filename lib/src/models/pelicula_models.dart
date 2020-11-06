@@ -42,7 +42,7 @@ class Pelicula {
   String title;
   double voteAverage;
   String overview;
-  DateTime releaseDate;
+  String releaseDate;
 
   Pelicula.fromJsonMap(Map<String, dynamic> json) {
     popularity = json['popularity'] / 1;
@@ -59,5 +59,13 @@ class Pelicula {
     voteAverage = json['vote_average'] / 1;
     overview = json['overview'];
     releaseDate = json['release_date'];
+  }
+
+  getPosterImg() {
+    if (posterPath == null) {
+      return 'https://image.tmdb.org/t/p/w500/wwemzKWzjKYJFfCeiB57q3r4Bcm.png';
+    } else {
+      return 'https://image.tmdb.org/t/p/w500/$posterPath';
+    }
   }
 }
