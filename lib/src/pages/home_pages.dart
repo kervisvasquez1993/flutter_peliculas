@@ -39,7 +39,11 @@ Widget _swipperTarjetas() {
         return CardSwiper(peliculas: snapshot.data);
       } else {
         return Container(
-            height: 400, child: Center(child: CircularProgressIndicator()));
+          height: 400,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        );
       }
     },
   );

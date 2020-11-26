@@ -5,7 +5,8 @@ class Peliculas {
   Peliculas.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) return;
     for (var item in jsonList) {
-      final pelicula = new Pelicula.fromJsonMap(item);
+      final pelicula =
+          new Pelicula.fromJsonMap(item); // nueva instancia de pelicula
       items.add(pelicula);
     }
   }
@@ -54,7 +55,7 @@ class Pelicula {
     backdropPath = json['backdrop_path'];
     originalLanguage = json['original_language'];
     originalTitle = json['original_title'];
-    genreIds = json['genre_ids'].cast<int>();
+    genreIds = json['genre_ids'].cast<int>(); // esto es de tipo entero
     title = json['title'];
     voteAverage = json['vote_average'] / 1;
     overview = json['overview'];
