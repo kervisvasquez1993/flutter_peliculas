@@ -1,6 +1,7 @@
 import 'package:app_peliculas/src/models/pelicula_models.dart';
 import 'package:app_peliculas/src/providers/peliculas_provider.dart';
 import 'package:app_peliculas/src/widget/card_swiper_widget.dart';
+import 'package:app_peliculas/src/widget/movie_horizontal.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_swiper/flutter_swiper.dart';
 
@@ -32,21 +33,29 @@ class HomePages extends StatelessWidget {
     return Container(
       width: double.infinity,
       child: Column(
+        crossAxisAlignment:
+            CrossAxisAlignment.start, // esta propiedad es para colunmas
         children: <Widget>[
-          Text(
-            'Populares',
-            style: Theme.of(context).textTheme.subtitle1,
+          Container(
+            padding: EdgeInsets.only(left: 5.0),
+            child: Text(
+              'Populares',
+              style: Theme.of(context).textTheme.subtitle1,
+            ),
+          ),
+          SizedBox(
+            height: 10.0,
           ),
           FutureBuilder(
             future: peliculasProvider.getPopulares(),
             builder:
                 (BuildContext context, AsyncSnapshot<List<Pelicula>> snapshot) {
               print('<=================populares=========>');
-              snapshot.data?.forEach(
-                (p) {
-                  print(p.title);
-                },
-              );
+              if (snapshot.hasData) {
+                return MovieHorizontal(peliculas: snapshot.data);
+              } else {
+                return CircularProgressIndicator();
+              }
               return Container();
             },
           ),
