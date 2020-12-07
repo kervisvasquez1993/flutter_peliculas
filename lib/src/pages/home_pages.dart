@@ -9,6 +9,7 @@ class HomePages extends StatelessWidget {
   final peliculasProvider = new PeliculasProvider();
   @override
   Widget build(BuildContext context) {
+    peliculasProvider.getPopulares();
     return Scaffold(
         appBar: AppBar(
           centerTitle: false,
@@ -34,7 +35,7 @@ class HomePages extends StatelessWidget {
       width: double.infinity,
       child: Column(
         crossAxisAlignment:
-            CrossAxisAlignment.start, // esta propiedad es para colunmas
+            CrossAxisAlignment.center, // esta propiedad es para colunmas
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(left: 5.0),
@@ -46,13 +47,15 @@ class HomePages extends StatelessWidget {
           SizedBox(
             height: 5.0,
           ),
-          FutureBuilder(
-            future: peliculasProvider.getPopulares(),
+          StreamBuilder(
+            stream: peliculasProvider.popularesStream,
             builder:
                 (BuildContext context, AsyncSnapshot<List<Pelicula>> snapshot) {
-              print('<=================populares=========>');
               if (snapshot.hasData) {
-                return MovieHorizontal(peliculas: snapshot.data);
+                return MovieHorizontal(
+                  peliculas: snapshot.data,
+                  sigueinteaPagenida: peliculasProvider.getPopulares,
+                );
               } else {
                 return CircularProgressIndicator();
               }
