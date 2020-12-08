@@ -1,4 +1,6 @@
+import 'package:app_peliculas/src/models/actores_model.dart';
 import 'package:app_peliculas/src/models/pelicula_models.dart';
+import 'package:app_peliculas/src/providers/peliculas_provider.dart';
 import 'package:flutter/material.dart';
 
 class PeliculaDetalle extends StatelessWidget {
@@ -17,11 +19,7 @@ class PeliculaDetalle extends StatelessWidget {
               SizedBox(height: 10.0),
               _posterTitulo(context, pelicula),
               _descripcion(pelicula),
-              _descripcion(pelicula),
-              _descripcion(pelicula),
-              _descripcion(pelicula),
-              _descripcion(pelicula),
-              _descripcion(pelicula),
+              _crearCasting(pelicula)
             ]),
           ),
         ],
@@ -100,6 +98,36 @@ class PeliculaDetalle extends StatelessWidget {
       child: Text(
         pelicula.overview,
         textAlign: TextAlign.justify,
+      ),
+    );
+  }
+
+  _crearCasting(Pelicula pelicula) {
+    final peliProvider = new PeliculasProvider();
+    return FutureBuilder(
+      future: peliProvider.getCast(pelicula.id.toString()),
+      //initialData: InitialData,
+      builder: (BuildContext context, AsyncSnapshot snapshot) {
+        if (snapshot.hasData) {
+          return _crearActoresPageView(snapshot.data);
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+      },
+    );
+  }
+
+  Widget _crearActoresPageView(List<Actor> actores) {
+    return SizedBox(
+      height: 200.0,
+      child: PageView.builder(
+        controller: PageController(viewportFraction: 0.3, initialPage: 1),
+        itemCount: actores.length,
+        itemBuilder: (context, i) {
+          return Text('hola');
+        },
       ),
     );
   }

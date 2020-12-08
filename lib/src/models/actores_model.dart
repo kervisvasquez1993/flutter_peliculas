@@ -3,7 +3,11 @@
 class Cast {
   List<Actor> actores = new List();
   Cast.fromJsonList(List<dynamic> jsonList) {
-    if (jsonList == null) return;
+    if (jsonList == null) {
+      print("no se puede traer los datos");
+      return;
+    }
+    ;
     jsonList.forEach((element) {
       final actor = Actor.fromJsonMap(element);
       actores.add(actor);
