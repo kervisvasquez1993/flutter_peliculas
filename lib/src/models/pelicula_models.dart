@@ -3,7 +3,11 @@ class Peliculas {
   List<Pelicula> items = new List();
   Peliculas();
   Peliculas.fromJsonList(List<dynamic> jsonList) {
-    if (jsonList == null) return;
+    if (jsonList == null) {
+      print("=======test=====");
+      return;
+    }
+
     for (var item in jsonList) {
       final pelicula =
           new Pelicula.fromJsonMap(item); // nueva instancia de pelicula

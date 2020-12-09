@@ -126,7 +126,7 @@ class PeliculaDetalle extends StatelessWidget {
         controller: PageController(viewportFraction: 0.3, initialPage: 1),
         itemCount: actores.length,
         itemBuilder: (context, i) {
-          return Text('hola');
+          return Text("hola");
         },
       ),
     );

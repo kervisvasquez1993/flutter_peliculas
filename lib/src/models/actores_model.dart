@@ -2,12 +2,13 @@
 // modelo para tener inormacion de todos los actores
 class Cast {
   List<Actor> actores = new List();
+  Cast();
   Cast.fromJsonList(List<dynamic> jsonList) {
     if (jsonList == null) {
-      print("no se puede traer los datos");
+      print("==========no se puede traer los datos=============");
       return;
     }
-    ;
+
     jsonList.forEach((element) {
       final actor = Actor.fromJsonMap(element);
       actores.add(actor);
@@ -23,6 +24,7 @@ class Actor {
     this.adult,
     this.gender,
     this.id,
+    this.knownForDepartment,
     this.name,
     this.originalName,
     this.popularity,
@@ -31,13 +33,14 @@ class Actor {
     this.character,
     this.creditId,
     this.order,
+    this.department,
     this.job,
   });
 
   bool adult;
   int gender;
   int id;
-
+  Department knownForDepartment;
   String name;
   String originalName;
   double popularity;
@@ -46,7 +49,7 @@ class Actor {
   String character;
   String creditId;
   int order;
-
+  Department department;
   String job;
 
   Actor.fromJsonMap(Map<String, dynamic> json) {
@@ -54,6 +57,7 @@ class Actor {
     gender = json['gender'];
     id = json['id'];
     name = json['name'];
+    knownForDepartment = json['known_for_department'];
     originalName = json['original_name'];
     popularity = json['popularity'];
     profilePath = json['profile_path'];
@@ -74,3 +78,18 @@ class Actor {
 }
 
 // metodo para recibir la informacion
+
+enum Department {
+  ACTING,
+  CREW,
+  COSTUME_MAKE_UP,
+  WRITING,
+  PRODUCTION,
+  SOUND,
+  DIRECTING,
+  CAMERA,
+  LIGHTING,
+  ART,
+  EDITING,
+  VISUAL_EFFECTS
+}
