@@ -34,6 +34,7 @@ class Pelicula {
     this.releaseDate,
   });
 
+  String uniqueId;
   double popularity;
   int voteCount;
   bool video;

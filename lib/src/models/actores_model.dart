@@ -17,8 +17,7 @@ class Cast {
 }
 // fin de metodo
 
-// codigo para traer informacion individualmente de cada actor
-
+// codigo para traer informacion individualmente d
 class Actor {
   Actor({
     this.adult,
