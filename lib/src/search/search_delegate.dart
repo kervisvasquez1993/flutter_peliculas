@@ -1,7 +1,10 @@
+import 'package:app_peliculas/src/models/pelicula_models.dart';
+import 'package:app_peliculas/src/providers/peliculas_provider.dart';
 import 'package:flutter/material.dart';
 
 class DataSearch extends SearchDelegate {
   String seleccion = "";
+  final peliculaProvider = new PeliculasProvider();
   final peliculas = [
     'pelicula1',
     'pelicula2',
@@ -55,7 +58,7 @@ class DataSearch extends SearchDelegate {
     ));
   }
 
-  @override
+  /*  @override
   Widget buildSuggestions(BuildContext context) {
     // sujerencias que aparencen cuando la persona escribe
     final listaSugerida = (query.isEmpty)
@@ -74,6 +77,45 @@ class DataSearch extends SearchDelegate {
               seleccion = listaSugerida[i];
               showResults(context);
             });
+      },
+    );
+  } */
+
+  Widget buildSuggestions(BuildContext context) {
+    // sujerencias que aparencen cuando la persona escribe
+    if (query.isEmpty) {
+      return Container();
+    }
+
+    return FutureBuilder(
+      future: peliculaProvider.buscarPelicula(query),
+      builder: (BuildContext context, AsyncSnapshot<List<Pelicula>> snapshot) {
+        if (snapshot.hasData) {
+          final peliculas = snapshot.data;
+          return ListView(
+            children: peliculas.map((pelicula) {
+              return ListTile(
+                leading: FadeInImage(
+                  image: NetworkImage(pelicula.getPosterImg()),
+                  placeholder: AssetImage('assets/img/no-imagen.jpg'),
+                  width: 50.0,
+                  fit: BoxFit.contain,
+                ),
+                title: Text(pelicula.title),
+                subtitle: Text(pelicula.originalTitle),
+                onTap: () {
+                  close(context, null);
+                  pelicula.uniqueId = '';
+                  Navigator.pushNamed(context, "detalle", arguments: {});
+                },
+              );
+            }).toList(),
+          );
+        } else {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
       },
     );
   }
